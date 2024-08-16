@@ -38,6 +38,7 @@ const (
 	opSetWatches      = 101
 	opSetWatches2     = 105
 	opAddWatch        = 106
+	opWhoAmI          = 107
 	opError           = -1
 	// Not in protocol, used internally
 	opWatcherEvent = -2

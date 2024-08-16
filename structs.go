@@ -369,6 +369,17 @@ type checkWatchesRequest struct {
 
 type checkWatchesResponse struct{}
 
+type ClientInfo struct {
+	AuthScheme string
+	User       string
+}
+
+type whoAmIRequest struct{}
+
+type whoAmIResponse struct {
+	ClientInfo []ClientInfo
+}
+
 func (r *multiRequest) Encode(buf []byte) (int, error) {
 	total := 0
 	for _, op := range r.Ops {
@@ -741,6 +752,8 @@ func requestStructForOp(op int32) interface{} {
 		return &reconfigRequest{}
 	case opAddWatch:
 		return &addWatchRequest{}
+	case opWhoAmI:
+		return &whoAmIRequest{}
 	}
 	return nil
 }

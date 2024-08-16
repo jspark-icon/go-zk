@@ -1644,6 +1644,15 @@ func resendZkAuth(ctx context.Context, c *Conn) error {
 	return nil
 }
 
+func (c *Conn) WhoAmI() ([]ClientInfo, error) {
+	res := &whoAmIResponse{}
+	_, err := c.request(opWhoAmI, &whoAmIRequest{}, res, nil)
+	if errors.Is(err, ErrConnectionClosed) {
+		return nil, err
+	}
+	return res.ClientInfo, err
+}
+
 func JoinPath(parent, child string) string {
 	if !strings.HasSuffix(parent, "/") {
 		parent += "/"
